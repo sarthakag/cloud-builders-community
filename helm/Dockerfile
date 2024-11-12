@@ -11,6 +11,9 @@ RUN chmod +x /builder/helm.bash && \
   curl -SL https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar zxv --strip-components=1 -C /builder/helm linux-amd64 && \
   gcloud -q components install gke-gcloud-auth-plugin
 
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" &&\
+   chmod +x kubectl
+
 ENV PATH=/builder/helm/:$PATH
 
 ENTRYPOINT ["/builder/helm.bash"]
